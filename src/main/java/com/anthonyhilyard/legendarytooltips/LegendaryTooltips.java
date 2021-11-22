@@ -1,9 +1,11 @@
 package com.anthonyhilyard.legendarytooltips;
 
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.FormattedText;
@@ -33,6 +35,8 @@ public class LegendaryTooltips implements ClientModInitializer
 	@Override
 	public void onInitializeClient()
 	{
+		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(LegendaryTooltipsJson.INSTANCE);
+
 		LegendaryTooltipsConfig.init();
 
 		RenderTooltipEvents.PRE.register(LegendaryTooltips::onPreTooltipEvent);

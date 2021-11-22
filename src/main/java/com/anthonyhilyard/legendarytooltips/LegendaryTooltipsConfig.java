@@ -43,9 +43,9 @@ public class LegendaryTooltipsConfig implements ConfigData
 
 	@Comment("Custom borders are broken into 16 \"levels\", with level 0 being intended for the \"best\" or \"rarest\" items. Only level 0 has a custom border built-in, but others can be added with resource packs.\n" +
 			 "The start border color (color at top of tooltip) of each levels' borders. Note that they can be entered as a lowercase hex code in the format \"0xaarrggbb\" or \"0xrrggbb\" for convenience.")
-	public Long[] startColors = Collections.nCopies(LegendaryTooltips.NUM_FRAMES, 0xFF996922L).toArray(new Long[0]);
+	public Long[] startColors = new Long[]{0xFF996922L, 0xFF996922L, 0xFF697c8cL, 0xFF70453dL, 0xff912307L, 0xff008fccL, 0xff5c4c2dL, 0xff705a87L, 0xff7d8a91L, 0xffa591b6L, 0xfffffadbL, 0xff996922L, 0xff996922L, 0xff996922L, 0xff996922L, 0xff996922L};
 	@Comment("The end border color (color at bottom of tooltip) of each levels' borders. Note that they can be entered as a lowercase hex code in the format \"0xaarrggbb\" or \"0xrrggbb\" for convenience.")
-	public Long[] endColors = Collections.nCopies(LegendaryTooltips.NUM_FRAMES, 0xFF5A3A1DL).toArray(new Long[0]);
+	public Long[] endColors = new Long[]{0xFF5A3A1DL, 0xff5b3b1dL, 0xff3a4c61L, 0xff542323L, 0xff818385L, 0xff044b8aL, 0xff5c4c2dL, 0xff393556L, 0xff7d8a91L, 0xffa591b6L, 0xffffdfadL, 0xff5a3a1dL, 0xff5a3a1dL, 0xff5a3a1dL, 0xff5a3a1dL, 0xff5a3a1dL};
 
 	@Comment("Set border priorities here.  This should be a list of numbers that correspond to border levels, with numbers coming first being higher priority.")
 	private Integer[] framePriorities = IntStream.rangeClosed(0, LegendaryTooltips.NUM_FRAMES - 1).boxed().collect(Collectors.toList()).toArray(new Integer[0]);
@@ -104,6 +104,14 @@ public class LegendaryTooltipsConfig implements ConfigData
 
 	public int getFrameLevelForItem(ItemStack item)
 	{
+		for(int i = 0; i < LegendaryToolTipsStorage.instance.names.size(); i++)
+		{
+			if((item.getDescriptionId()).equals(LegendaryToolTipsStorage.instance.names.get(i)))
+			{
+				return LegendaryToolTipsStorage.instance.values.get(i);
+			}
+		}
+
 		if (frameLevelCache.containsKey(item))
 		{
 			return frameLevelCache.get(item);
